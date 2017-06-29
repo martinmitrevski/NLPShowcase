@@ -75,19 +75,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s56-6b-LGR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0i1-7R-you">
+                                <rect key="frame" x="16" y="597" width="343" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="TBs-Jz-FB1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yAc-MA-S6I" firstAttribute="top" secondItem="s56-6b-LGR" secondAttribute="bottom" id="18a-vL-Ies"/>
+                            <constraint firstItem="yAc-MA-S6I" firstAttribute="top" secondItem="0i1-7R-you" secondAttribute="bottom" id="Ig4-we-wCL"/>
+                            <constraint firstAttribute="trailing" secondItem="0i1-7R-you" secondAttribute="trailing" constant="16" id="Ot9-wZ-tto"/>
+                            <constraint firstItem="0i1-7R-you" firstAttribute="leading" secondItem="Vbk-29-Rpv" secondAttribute="leading" constant="16" id="XFp-Gq-p13"/>
                             <constraint firstAttribute="trailing" secondItem="s56-6b-LGR" secondAttribute="trailing" id="a5n-YT-RxF"/>
                             <constraint firstItem="s56-6b-LGR" firstAttribute="top" secondItem="Vbk-29-Rpv" secondAttribute="top" id="eXF-I0-qzF"/>
                             <constraint firstItem="s56-6b-LGR" firstAttribute="leading" secondItem="Vbk-29-Rpv" secondAttribute="leading" id="hhe-ob-yUS"/>
+                            <constraint firstItem="0i1-7R-you" firstAttribute="top" secondItem="s56-6b-LGR" secondAttribute="bottom" id="ltK-gA-TDk"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="tags" destination="0i1-7R-you" id="GJF-66-dMz"/>
                         <outlet property="webView" destination="s56-6b-LGR" id="jrU-ae-7aP"/>
                     </connections>
                 </viewController>

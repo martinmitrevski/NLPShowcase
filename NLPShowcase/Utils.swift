@@ -64,3 +64,10 @@ func tfIdf(urlString: String,
               word: word, wordCountings: wordCountings,
               totalDocs: totalDocs)
 }
+
+func removeTags(fromHtml html: String) -> String {
+    return html.replacingOccurrences(of: "<[^>]+>",
+                                     with: "",
+                                     options: String.CompareOptions.regularExpression,
+                                     range: nil)
+}

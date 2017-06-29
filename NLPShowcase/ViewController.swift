@@ -15,11 +15,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private let cellIdentifier = "PostCell"
     private var selectedRow: IndexPath?
     private var loadingView: LoadingView!
-    let session = URLSession.shared
+    private let session = URLSession.shared
     private var wordCountings = Dictionary<String, Dictionary<String, Int>>()
     private var documentSizes = [String : Int]()
     private var selectedHtml: String?
-    var test = [String]()
+    private var keywords: [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         loadPosts()
         setupLoadingView()
     }
+    
+    // MARK: private
     
     private func loadPosts() {
         let fileUrl = Bundle.main.url(forResource: "posts", withExtension: "json")
@@ -67,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         { [unowned self] (data, response, error) in
             let html = String(data: data!, encoding: String.Encoding.utf8)
             var docSize = 0
-            self.words(inText: self.removeTags(fromHtml: html!),
+            self.words(inText: removeTags(fromHtml: html!),
                        url: urlString,
                        action: { [unowned self] tag, tokenRange, stop, url in
                 if let lemma = tag?.rawValue {
@@ -86,13 +88,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         task.resume()
     }
     
-    private func removeTags(fromHtml html: String) -> String {
-        return html.replacingOccurrences(of: "<[^>]+>",
-                                         with: "",
-                                         options: String.CompareOptions.regularExpression,
-                                         range: nil)
-    }
-    
     private func words(inText text: String,
                        url: String,
                        action: @escaping (NSLinguisticTag?,
@@ -102,13 +97,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tagger = NSLinguisticTagger(tagSchemes:[.lemma], options: 0)
         tagger.string = text
         let range = NSRange(location:0, length: text.utf16.count)
-        let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
+        let options: NSLinguisticTagger.Options = [.omitWhitespace, .omitPunctuation, .joinNames]
         
-        test = [String]()
         tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options)
         { tag, tokenRange, stop in
             action(tag, tokenRange, stop, url)
         }
+    }
+    
+    private func sort(result: [String : Double]) -> [String] {
+        let sorted = result.sorted(by: { (arg0, arg1) -> Bool in
+            let (_, value1) = arg0
+            let (_, value2) = arg1
+            return value1 > value2
+        }).map({ (arg) -> String in
+            let (title, _) = arg
+            return title
+        })
+        return sorted
+    }
+    
+    private func extractKeywordsTask(fromUrlString urlString: String) -> URLSessionDataTask {
+        var result = [String : Double]()
+        let task = session.dataTask(with: self.request(fromUrlString: urlString))
+        { [unowned self] (data, response, error) in
+            self.selectedHtml = String(data: data!, encoding: String.Encoding.utf8)
+            self.words(inText: removeTags(fromHtml: self.selectedHtml!),
+                       url: urlString,
+                       action: { [unowned self] tag, tokenRange, stop, url in
+                        if let lemma = tag?.rawValue {
+                            result[lemma] = tfIdf(urlString: urlString,
+                                                  word: lemma,
+                                                  wordCountings: self.wordCountings,
+                                                  totalWordCount: self.documentSizes[url]!,
+                                                  totalDocs: self.posts.count)
+                        }
+            })
+            
+            DispatchQueue.main.sync {
+                self.keywords = Array(self.sort(result: result)[0..<10])
+                self.loadingView.hide()
+                self.performSegue(withIdentifier: "showWebView", sender: self)
+            }
+        }
+        return task
     }
     
     // MARK: UITableViewDataSource
@@ -134,36 +166,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         selectedRow = indexPath
         let post = posts[indexPath.row]
         let urlString = post["url"]!
-        var result = [String : Double]()
         loadingView.show()
-        let task = session.dataTask(with: self.request(fromUrlString: urlString))
-        { [unowned self] (data, response, error) in
-            self.selectedHtml = String(data: data!, encoding: String.Encoding.utf8)
-            self.words(inText: self.removeTags(fromHtml: self.selectedHtml!),
-                       url: urlString,
-                       action: { [unowned self] tag, tokenRange, stop, url in
-                            if let lemma = tag?.rawValue {
-                                result[lemma] = tfIdf(urlString: urlString,
-                                                      word: lemma,
-                                                      wordCountings: self.wordCountings,
-                                                      totalWordCount: self.documentSizes[url]!,
-                                                      totalDocs: self.posts.count)
-                            }
-                        })
-            let sorted = result.sorted(by: { (arg0, arg1) -> Bool in
-                let (_, value1) = arg0
-                let (_, value2) = arg1
-                return value1 > value2
-            })
-            let keywords = sorted[0..<7]
-            
-            DispatchQueue.main.sync {
-                self.loadingView.hide()
-                print(keywords)
-                self.performSegue(withIdentifier: "showWebView", sender: self)
-            }
-        }
-        task.resume()
+        extractKeywordsTask(fromUrlString: urlString).resume()
     }
     
     // MARK: Seque
@@ -173,8 +177,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let next = segue.destination as! WebViewController
             next.postTitle = posts[selectedRow!.row]["title"]
             next.html = selectedHtml
+            next.keywords = keywords
             selectedRow = nil
             selectedHtml = nil
+            keywords = nil
         }
     }
 }

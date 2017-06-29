@@ -12,12 +12,15 @@ class WebViewController: UIViewController {
     
     var postTitle: String!
     var html: String!
+    var keywords: [String]!
     @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var tags: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = title
+        self.title = postTitle
+        tags.text = keywords.joined(separator: " ")
         webView.loadHTMLString(html, baseURL: nil)
     }
 

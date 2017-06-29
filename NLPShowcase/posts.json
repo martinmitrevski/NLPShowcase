@@ -37,11 +37,11 @@
                "url" : "https://martinmitrevski.com/2017/02/22/setting-up-apple-pay/"
                },
                {
-               "title" : "What every great iOS engineer needs to know (part 2)",
+               "title" : "Great iOS engineer (part 2)",
                "url" : "https://martinmitrevski.com/2017/02/12/what-every-great-ios-engineer-needs-to-know-part-2/"
                },
                {
-               "title" : "What every great iOS engineer needs to know (part 1)",
+               "title" : "Great iOS engineer (part 1)",
                "url" : "https://martinmitrevski.com/2017/02/11/what-every-great-ios-engineer-needs-to-know-part-1/"
                },
                {
@@ -57,7 +57,7 @@
                "url" : "https://martinmitrevski.com/2016/08/27/injecting-code-in-ios-framework-startup/"
                },
                {
-               "title" : "Reactive image downloading and caching with RXSwift",
+               "title" : "Reactive image downloading and caching",
                "url" : "https://martinmitrevski.com/2016/09/20/reactive-image-downloading-and-caching/"
                },
                {
@@ -77,7 +77,7 @@
                "url" : "https://martinmitrevski.com/2016/08/26/networking-in-swift/"
                },
                {
-               "title" : "Introduction to Functional Reactive Programming and Table Views",
+               "title" : "Introduction to Functional Reactive Programming",
                "url" : "https://martinmitrevski.com/2016/08/20/introduction-to-functional-reactive-programming-and-table-views/"
                }
                ]
