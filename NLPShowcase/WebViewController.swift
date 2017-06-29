@@ -10,17 +10,15 @@ import UIKit
 
 class WebViewController: UIViewController {
     
-    var post: [String: String]!
+    var postTitle: String!
+    var html: String!
     @IBOutlet weak var webView: UIWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let title = post["title"]
         self.title = title
-        let url = post["url"]
-        let request = URLRequest(url: URL(string: url!)!)
-        webView.loadRequest(request)
+        webView.loadHTMLString(html, baseURL: nil)
     }
 
 }

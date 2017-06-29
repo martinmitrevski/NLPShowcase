@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let session = URLSession.shared
     private var wordCountings = Dictionary<String, Dictionary<String, Int>>()
     private var documentSizes = [String : Int]()
+    private var selectedHtml: String?
     var test = [String]()
     
     override func viewDidLoad() {
@@ -55,12 +56,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addSubview(loadingView)
     }
     
-    func load(url urlString: String){
+    private func request(fromUrlString urlString: String) -> URLRequest {
         let url = URL(string: urlString)
         let request = URLRequest(url: url!)
-        let task = session.dataTask(with: request) { [unowned self] (data, response, error) in
+        return request
+    }
+    
+    private func load(url urlString: String){
+        let task = session.dataTask(with: self.request(fromUrlString: urlString))
+        { [unowned self] (data, response, error) in
             let html = String(data: data!, encoding: String.Encoding.utf8)
-            self.words(inText: self.removeTags(fromHtml: html!), url: urlString)
+            var docSize = 0
+            self.words(inText: self.removeTags(fromHtml: html!),
+                       url: urlString,
+                       action: { [unowned self] tag, tokenRange, stop, url in
+                if let lemma = tag?.rawValue {
+                    docSize += 1
+                    if self.wordCountings[lemma] == nil {
+                        self.wordCountings[lemma] = Dictionary<String, Int>()
+                    }
+                    if self.wordCountings[lemma]![url] == nil {
+                        self.wordCountings[lemma]![url] = 0
+                    }
+                    self.wordCountings[lemma]![url] = self.wordCountings[lemma]![url]! + 1
+                }
+            })
+            self.documentSizes[urlString] = docSize
         }
         task.resume()
     }
@@ -72,28 +93,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                          range: nil)
     }
     
-    private func words(inText text: String, url: String) {
+    private func words(inText text: String,
+                       url: String,
+                       action: @escaping (NSLinguisticTag?,
+                                          NSRange,
+                                          UnsafeMutablePointer<ObjCBool>,
+                                          String) -> Swift.Void) {
         let tagger = NSLinguisticTagger(tagSchemes:[.lemma], options: 0)
         tagger.string = text
         let range = NSRange(location:0, length: text.utf16.count)
         let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace]
-        var docSize = 0
+        
         test = [String]()
         tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options)
         { tag, tokenRange, stop in
-            if let lemma = tag?.rawValue {
-                test.append(lemma)
-                docSize += 1
-                if wordCountings[lemma] == nil {
-                    wordCountings[lemma] = Dictionary<String, Int>()
-                }
-                if wordCountings[lemma]![url] == nil {
-                    wordCountings[lemma]![url] = 0
-                }
-                wordCountings[lemma]![url] = wordCountings[lemma]![url]! + 1
-            }
+            action(tag, tokenRange, stop, url)
         }
-        documentSizes[url] = docSize
     }
     
     // MARK: UITableViewDataSource
@@ -117,24 +132,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedRow = indexPath
+        let post = posts[indexPath.row]
+        let urlString = post["url"]!
         var result = [String : Double]()
-        let url = "https://martinmitrevski.com/2016/10/12/swift-class-diagrams-and-more/"
         loadingView.show()
-        for word in test {
-            result[word] = tfIdf(urlString: url,
-                                 word: word,
-                                 wordCountings: wordCountings,
-                                 totalWordCount: documentSizes[url]!,
-                                 totalDocs: posts.count)
+        let task = session.dataTask(with: self.request(fromUrlString: urlString))
+        { [unowned self] (data, response, error) in
+            self.selectedHtml = String(data: data!, encoding: String.Encoding.utf8)
+            self.words(inText: self.removeTags(fromHtml: self.selectedHtml!),
+                       url: urlString,
+                       action: { [unowned self] tag, tokenRange, stop, url in
+                            if let lemma = tag?.rawValue {
+                                result[lemma] = tfIdf(urlString: urlString,
+                                                      word: lemma,
+                                                      wordCountings: self.wordCountings,
+                                                      totalWordCount: self.documentSizes[url]!,
+                                                      totalDocs: self.posts.count)
+                            }
+                        })
+            let r = result.sorted(by: { (arg0, arg1) -> Bool in
+                let (_, value1) = arg0
+                let (_, value2) = arg1
+                return value1 > value2
+            })
+            
+            DispatchQueue.main.sync {
+                self.loadingView.hide()
+                print(r)
+                self.performSegue(withIdentifier: "showWebView", sender: self)
+            }
         }
-        let r = result.sorted(by: { (arg0, arg1) -> Bool in
-            let (_, value1) = arg0
-            let (_, value2) = arg1
-            return value1 > value2
-        })
-        
-        print(r)
-        //self.performSegue(withIdentifier: "showWebView", sender: self)
+        task.resume()
     }
     
     // MARK: Seque
@@ -142,8 +170,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showWebView" {
             let next = segue.destination as! WebViewController
-            next.post = posts[selectedRow!.row]
+            next.postTitle = posts[selectedRow!.row]["title"]
+            next.html = selectedHtml
             selectedRow = nil
+            selectedHtml = nil
         }
     }
 }
