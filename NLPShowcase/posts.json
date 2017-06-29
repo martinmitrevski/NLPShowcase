@@ -1,44 +1,84 @@
 {
-	"posts" : [
-		{
-			"title" : "Creating lists with SiriKit on iOS11",
-			"url" : "https://martinmitrevski.com/2017/06/24/creating-lists-with-sirikit-on-ios11/"
-		},
-		{
-			"title" : "Everything Apple announced on WWDC 2017",
-			"url" : "https://martinmitrevski.com/2017/06/05/everything-apple-announced-on-wwdc/"
-		},
-		{
-			"title" : "Booking a ride with SiriKit",
-			"url" : "https://martinmitrevski.com/2017/03/23/booking-a-ride-with-sirikit/"
-		},
-		{
-			"title" : "Getting started with api.ai for iOS",
-			"url" : "https://martinmitrevski.com/2017/03/12/getting-started-with-api-ai-for-ios/"
-		},
-		{
-			"title" : "Text to speech with synthesizers",
-			"url" : "https://martinmitrevski.com/2017/03/11/text-to-speech-with-synthesizers/"
-		},
-		{
-			"title" : "Playing with Speech Framework",
-			"url" : "https://martinmitrevski.com/2017/03/09/playing-with-speech-framework/"
-		},
-		{
-			"title" : "Exploring Conversational Interfaces",
-			"url" : "https://martinmitrevski.com/2017/02/25/exploring-conversational-interfaces/"
-		},
-		{
-			"title" : "What every great iOS engineer needs to know (part 2)",
-			"url" : "https://martinmitrevski.com/2017/02/12/what-every-great-ios-engineer-needs-to-know-part-2/"
-		},
-		{
-			"title" : "What every great iOS engineer needs to know (part 1)",
-			"url" : "https://martinmitrevski.com/2017/02/11/what-every-great-ios-engineer-needs-to-know-part-1/"
-		},
-		{
-			"title" : "Swift Class Diagrams and more",
-			"url" : "https://martinmitrevski.com/2016/10/12/swift-class-diagrams-and-more/"
-		}
-	]
+    "posts" : [
+               {
+               "title" : "Creating lists with SiriKit on iOS11",
+               "url" : "https://martinmitrevski.com/2017/06/24/creating-lists-with-sirikit-on-ios11/"
+               },
+               {
+               "title" : "Everything Apple announced on WWDC 2017",
+               "url" : "https://martinmitrevski.com/2017/06/05/everything-apple-announced-on-wwdc/"
+               },
+               {
+               "title" : "Attending CodeMobile UK",
+               "url" : "https://martinmitrevski.com/2017/04/29/attending-codemobile-uk/"
+               },
+               {
+               "title" : "Booking a ride with SiriKit",
+               "url" : "https://martinmitrevski.com/2017/03/23/booking-a-ride-with-sirikit/"
+               },
+               {
+               "title" : "Getting started with api.ai for iOS",
+               "url" : "https://martinmitrevski.com/2017/03/12/getting-started-with-api-ai-for-ios/"
+               },
+               {
+               "title" : "Text to speech with synthesizers",
+               "url" : "https://martinmitrevski.com/2017/03/11/text-to-speech-with-synthesizers/"
+               },
+               {
+               "title" : "Playing with Speech Framework",
+               "url" : "https://martinmitrevski.com/2017/03/09/playing-with-speech-framework/"
+               },
+               {
+               "title" : "Exploring Conversational Interfaces",
+               "url" : "https://martinmitrevski.com/2017/02/25/exploring-conversational-interfaces/"
+               },
+               {
+               "title" : "Setting up Apple Pay",
+               "url" : "https://martinmitrevski.com/2017/02/22/setting-up-apple-pay/"
+               },
+               {
+               "title" : "What every great iOS engineer needs to know (part 2)",
+               "url" : "https://martinmitrevski.com/2017/02/12/what-every-great-ios-engineer-needs-to-know-part-2/"
+               },
+               {
+               "title" : "What every great iOS engineer needs to know (part 1)",
+               "url" : "https://martinmitrevski.com/2017/02/11/what-every-great-ios-engineer-needs-to-know-part-1/"
+               },
+               {
+               "title" : "Algorithms in Swift",
+               "url" : "https://martinmitrevski.com/2016/10/20/algorithms-in-swift/"
+               },
+               {
+               "title" : "Swift Class Diagrams and more",
+               "url" : "https://martinmitrevski.com/2016/10/12/swift-class-diagrams-and-more/"
+               },
+               {
+               "title" : "Injecting code in iOS framework startup",
+               "url" : "https://martinmitrevski.com/2016/08/27/injecting-code-in-ios-framework-startup/"
+               },
+               {
+               "title" : "Reactive image downloading and caching with RXSwift",
+               "url" : "https://martinmitrevski.com/2016/09/20/reactive-image-downloading-and-caching/"
+               },
+               {
+               "title" : "Developing for Samsung Gear VR",
+               "url" : "https://martinmitrevski.com/2016/09/18/developing-for-samsung-gear-vr/"
+               },
+               {
+               "title" : "Swift considerations and decisions",
+               "url" : "https://martinmitrevski.com/2016/09/09/swift-considerations-and-decisions/"
+               },
+               {
+               "title" : "JSON Parsing in Swift with Generics",
+               "url" : "https://martinmitrevski.com/2016/08/28/json-parsing-in-swift-with-generics/"
+               },
+               {
+               "title" : "Networking in Swift",
+               "url" : "https://martinmitrevski.com/2016/08/26/networking-in-swift/"
+               },
+               {
+               "title" : "Introduction to Functional Reactive Programming and Table Views",
+               "url" : "https://martinmitrevski.com/2016/08/20/introduction-to-functional-reactive-programming-and-table-views/"
+               }
+               ]
 }

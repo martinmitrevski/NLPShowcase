@@ -150,15 +150,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                       totalDocs: self.posts.count)
                             }
                         })
-            let r = result.sorted(by: { (arg0, arg1) -> Bool in
+            let sorted = result.sorted(by: { (arg0, arg1) -> Bool in
                 let (_, value1) = arg0
                 let (_, value2) = arg1
                 return value1 > value2
             })
+            let keywords = sorted[0..<7]
             
             DispatchQueue.main.sync {
                 self.loadingView.hide()
-                print(r)
+                print(keywords)
                 self.performSegue(withIdentifier: "showWebView", sender: self)
             }
         }

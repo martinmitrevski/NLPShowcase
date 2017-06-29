@@ -41,6 +41,10 @@ func idf(urlString: String,
             sum += count
         }
     }
+        
+    if sum == 0 {
+        return 1
+    }
     
     let factor = Double(totalDocs) / Double(sum)
     return log(factor)
