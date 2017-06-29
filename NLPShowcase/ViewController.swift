@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private var posts: [[String : String]]!
     private let cellIdentifier = "PostCell"
     private var selectedRow: IndexPath?
+    private var loadingView: LoadingView!
     let session = URLSession.shared
     private var wordCountings = Dictionary<String, Dictionary<String, Int>>()
     private var documentSizes = [String : Int]()
@@ -23,6 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         self.title = "martinmitrevski.com"
         loadPosts()
+        setupLoadingView()
     }
     
     private func loadPosts() {
@@ -43,6 +45,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let url = post["url"]!
             load(url: url)
         }
+    }
+    
+    private func setupLoadingView() {
+        loadingView = Bundle.main
+            .loadNibNamed("LoadingView", owner: self, options: nil)?[0] as! LoadingView
+        loadingView.frame = self.view.frame
+        loadingView.isHidden = true
+        self.view.addSubview(loadingView)
     }
     
     func load(url urlString: String){
@@ -109,6 +119,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         selectedRow = indexPath
         var result = [String : Double]()
         let url = "https://martinmitrevski.com/2016/10/12/swift-class-diagrams-and-more/"
+        loadingView.show()
         for word in test {
             result[word] = tfIdf(urlString: url,
                                  word: word,

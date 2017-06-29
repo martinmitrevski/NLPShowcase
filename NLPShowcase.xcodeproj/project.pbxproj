@@ -12,9 +12,11 @@
 		63B130921F02F90E00A44E18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B130901F02F90E00A44E18 /* Main.storyboard */; };
 		63B130941F02F90E00A44E18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B130931F02F90E00A44E18 /* Assets.xcassets */; };
 		63B130971F02F90E00A44E18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B130951F02F90E00A44E18 /* LaunchScreen.storyboard */; };
-		63B1309F1F02F9B400A44E18 /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = 63B1309E1F02F9B300A44E18 /* posts.json */; };
 		63B130A11F02FA7200A44E18 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B130A01F02FA7200A44E18 /* WebViewController.swift */; };
 		63B616891F042BB400DF6176 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B616881F042BB400DF6176 /* Utils.swift */; };
+		E893405B1F051969008B7DEF /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = E8AA1FA11F0518CD00651C59 /* posts.json */; };
+		E8AA1F9E1F0517D900651C59 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AA1F9D1F0517D900651C59 /* LoadingView.swift */; };
+		E8AA1FA01F0517E600651C59 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8AA1F9F1F0517E600651C59 /* LoadingView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +27,11 @@
 		63B130931F02F90E00A44E18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63B130961F02F90E00A44E18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63B130981F02F90E00A44E18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63B1309E1F02F9B300A44E18 /* posts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = posts.json; path = ../../../../Desktop/posts.json; sourceTree = "<group>"; };
 		63B130A01F02FA7200A44E18 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		63B616881F042BB400DF6176 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E8AA1F9D1F0517D900651C59 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = "../../rng-016-ios9/src/main/swift/view/LoadingView.swift"; sourceTree = "<group>"; };
+		E8AA1F9F1F0517E600651C59 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoadingView.xib; path = "../../rng-016-ios9/src/main/xib/LoadingView.xib"; sourceTree = "<group>"; };
+		E8AA1FA11F0518CD00651C59 /* posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = posts.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,15 +64,17 @@
 		63B1308B1F02F90E00A44E18 /* NLPShowcase */ = {
 			isa = PBXGroup;
 			children = (
+				E8AA1FA11F0518CD00651C59 /* posts.json */,
 				63B1308C1F02F90E00A44E18 /* AppDelegate.swift */,
 				63B1308E1F02F90E00A44E18 /* ViewController.swift */,
 				63B130A01F02FA7200A44E18 /* WebViewController.swift */,
 				63B616881F042BB400DF6176 /* Utils.swift */,
+				E8AA1F9D1F0517D900651C59 /* LoadingView.swift */,
 				63B130901F02F90E00A44E18 /* Main.storyboard */,
+				E8AA1F9F1F0517E600651C59 /* LoadingView.xib */,
 				63B130931F02F90E00A44E18 /* Assets.xcassets */,
 				63B130951F02F90E00A44E18 /* LaunchScreen.storyboard */,
 				63B130981F02F90E00A44E18 /* Info.plist */,
-				63B1309E1F02F9B300A44E18 /* posts.json */,
 			);
 			path = NLPShowcase;
 			sourceTree = "<group>";
@@ -132,9 +138,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				63B130971F02F90E00A44E18 /* LaunchScreen.storyboard in Resources */,
+				E893405B1F051969008B7DEF /* posts.json in Resources */,
 				63B130941F02F90E00A44E18 /* Assets.xcassets in Resources */,
 				63B130921F02F90E00A44E18 /* Main.storyboard in Resources */,
-				63B1309F1F02F9B400A44E18 /* posts.json in Resources */,
+				E8AA1FA01F0517E600651C59 /* LoadingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +155,7 @@
 				63B1308F1F02F90E00A44E18 /* ViewController.swift in Sources */,
 				63B130A11F02FA7200A44E18 /* WebViewController.swift in Sources */,
 				63B1308D1F02F90E00A44E18 /* AppDelegate.swift in Sources */,
+				E8AA1F9E1F0517D900651C59 /* LoadingView.swift in Sources */,
 				63B616891F042BB400DF6176 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
