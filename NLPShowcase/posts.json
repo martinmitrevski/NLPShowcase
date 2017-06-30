@@ -1,6 +1,10 @@
 {
     "posts" : [
                {
+               "title" : "Natural Language Processing in iOS",
+               "url" : "https://martinmitrevski.com/2017/06/30/natural-language-processing-in-ios/"
+               },
+               {
                "title" : "Creating lists with SiriKit on iOS11",
                "url" : "https://martinmitrevski.com/2017/06/24/creating-lists-with-sirikit-on-ios11/"
                },
