@@ -160,7 +160,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
         }
         let post = posts[indexPath.row]
-        cell?.textLabel?.text = post["title"]
+        let title = post["title"]!
+        cell?.textLabel?.text = title
         return cell!
     }
     

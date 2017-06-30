@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="JSV-Fp-w5Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="JSV-Fp-w5Z">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -75,31 +75,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s56-6b-LGR">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="582"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0i1-7R-you">
-                                <rect key="frame" x="16" y="597" width="343" height="70"/>
+                                <rect key="frame" x="16" y="607" width="343" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="TBs-Jz-FB1"/>
+                                    <constraint firstAttribute="height" constant="60" id="TBs-Jz-FB1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sGB-nq-tBn">
+                                <rect key="frame" x="16" y="582" width="343" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="JdT-fL-nUI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="0i1-7R-you" firstAttribute="top" secondItem="sGB-nq-tBn" secondAttribute="bottom" id="7Pa-yd-KAf"/>
                             <constraint firstItem="yAc-MA-S6I" firstAttribute="top" secondItem="0i1-7R-you" secondAttribute="bottom" id="Ig4-we-wCL"/>
+                            <constraint firstItem="sGB-nq-tBn" firstAttribute="top" secondItem="s56-6b-LGR" secondAttribute="bottom" id="KbT-QB-0I8"/>
                             <constraint firstAttribute="trailing" secondItem="0i1-7R-you" secondAttribute="trailing" constant="16" id="Ot9-wZ-tto"/>
+                            <constraint firstItem="sGB-nq-tBn" firstAttribute="leading" secondItem="Vbk-29-Rpv" secondAttribute="leading" constant="16" id="T3i-27-XFI"/>
                             <constraint firstItem="0i1-7R-you" firstAttribute="leading" secondItem="Vbk-29-Rpv" secondAttribute="leading" constant="16" id="XFp-Gq-p13"/>
                             <constraint firstAttribute="trailing" secondItem="s56-6b-LGR" secondAttribute="trailing" id="a5n-YT-RxF"/>
                             <constraint firstItem="s56-6b-LGR" firstAttribute="top" secondItem="Vbk-29-Rpv" secondAttribute="top" id="eXF-I0-qzF"/>
+                            <constraint firstAttribute="trailing" secondItem="sGB-nq-tBn" secondAttribute="trailing" constant="16" id="gWZ-WD-61l"/>
                             <constraint firstItem="s56-6b-LGR" firstAttribute="leading" secondItem="Vbk-29-Rpv" secondAttribute="leading" id="hhe-ob-yUS"/>
-                            <constraint firstItem="0i1-7R-you" firstAttribute="top" secondItem="s56-6b-LGR" secondAttribute="bottom" id="ltK-gA-TDk"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="detectedLanguage" destination="sGB-nq-tBn" id="9lh-XW-Kfm"/>
                         <outlet property="tags" destination="0i1-7R-you" id="GJF-66-dMz"/>
                         <outlet property="webView" destination="s56-6b-LGR" id="jrU-ae-7aP"/>
                     </connections>
